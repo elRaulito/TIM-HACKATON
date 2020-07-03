@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <title>Seminja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="boot/css/bootstrap.min.css">
+  <script src="boot/jquery/jquery.min.js"></script>
+  <script src="boot/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+
+<script>
+async function getLight() {
+  const result = await fetch("https://sanify-dce85.firebaseio.com/plant.json");
+  const luce = await result.json();
+  console.log(luce);
+  console.log(luce.light);
+  const el = document.getElementById("barralight");
+
+  var valore=parseInt(luce.light);
+  valore=valore/5;
+  valore=Math.floor(valore)
+  console.log(valore);
+  valore=100-valore;
+  var lunghezza=valore.toString();
+  console.log(lunghezza);
+  el.style.width=lunghezza.concat("%");
+  el.innerText=lunghezza.concat("%");
+
+}
+
+async function getTemp() {
+  const result = await fetch("https://sanify-dce85.firebaseio.com/plant.json");
+  const temp = await result.json();
+  console.log(temp);
+  console.log(temp.temp);
+  const el = document.getElementById("valoreTemp");
+
+  var valore=parseInt(temp.temp);
+  var valoreString=valore.toString();
+
+  valoreString=valoreString.concat(" °C");
+  el.innerText=valoreString;
+
+}
+
+async function getSoil() {
+  const result = await fetch("https://sanify-dce85.firebaseio.com/plant.json");
+  const soil = await result.json();
+  const el = document.getElementById("barraSoil");
+
+  var valore=parseInt(soil.soil);
+  valore=valore/5;
+  valore=Math.floor(valore)
+  valore=100-valore;
+  var humString=valore.toString();
+  el.style.width=humString.concat("%");
+  el.innerText=humString.concat("%");
+}
+
+async function getHum() {
+  const result = await fetch("https://sanify-dce85.firebaseio.com/plant.json");
+  const hum = await result.json();
+  const el = document.getElementById("barraHum");
+
+  var valore=parseInt(hum.hum);
+  var humString=valore.toString();
+  el.style.width=humString.concat("%");
+  el.innerText=humString.concat("%");
+}
+
+function start(){
+
+    getLight();
+    getTemp();
+    getHum();
+    getSoil();
+}
+
+setInterval(start,500);
+</script>
+<body onload="start()">
+
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Seminja</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div style="background:transparent !important" class="jumbotron center">
+  <div class="container text-center">
+    <h1>Ciao lavora tranquillo, io sto bene</h1>
+    <img src="img/pianta.gif" class="img-responsive center" alt="piantina">
+  </div>
+
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <div class="row">
+    <div class="col-sm-4">
+<h2>Luminosità</h2>
+<div class="progress">
+  <div id="barralight" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+  aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+    60%
+  </div>
+</div>
+    </div>
+    <div class="col-sm-4">
+
+<h2>Temperatura</h2>
+
+
+<h1 id="valoreTemp">30 °C</h1>
+
+
+    </div>
+    <div class="col-sm-4">
+<h2>Umidità</h2>
+<div class="progress">
+  <div id="barraHum" class="progress-bar progress-bar-striped active" role="progressbar"
+  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+    40%
+  </div>
+</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4">
+      <h2>Umidità Terreno</h2>
+      <div id="barraSoil" class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar"
+      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+        60%
+      </div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+  </div>
+
+</div><br><br>
+
+
+
+
+
+</body>
+</html>
