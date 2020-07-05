@@ -1,11 +1,15 @@
-ESP-IDF template app
+SEMINJA
 ====================
 
-This is a template application to be used with [Espressif IoT Development Framework](https://github.com/espressif/esp-idf).
 
-Please check [ESP-IDF docs](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html) for getting started instructions.
 
-*Code in this repository is in the Public Domain (or CC0 licensed, at your option.)
-Unless required by applicable law or agreed to in writing, this
-software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied.*
+Il progetto è stato sviluppato su ambiente di sviluppo Eclipse.
+Utilizzando le librerie standard dell'esp32 si sono aggiunte le librerie:
+
+-sensor per comunicare con il sensore di temperatura e umidità
+-fetch per efettuare le chiamate alle api di tim
+
+Si sfruttano i due core dell'esp32, il primo core si dedica alla connettività mentre il secondo core si dedica ai sensori
+
+La scheda genera un wifi per comunicare con l'utente, se nessuno è collegato ogni 10 secondi si collega ad una rete wifi domestica
+per efettuare le chiamate alle API.
